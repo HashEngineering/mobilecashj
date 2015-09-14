@@ -1,5 +1,8 @@
 package com.hashengineering.crypto;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.cryptohash.BLAKE256;
 import fr.cryptohash.BMW256;
 import fr.cryptohash.CubeHash256;
@@ -11,10 +14,12 @@ import fr.cryptohash.Skein256;
  */
 public class Lyra2RE {
     private static boolean nativeLibraryLoaded = false;
+    private static final Logger log = LoggerFactory.getLogger(Lyra2RE.class);
     static {
         try {
             System.loadLibrary("diffhash");
             nativeLibraryLoaded = true;
+            log.info("Native Libary \"diffhash\" loaded");
         }
         catch(UnsatisfiedLinkError x)
         {
@@ -31,6 +36,20 @@ public class Lyra2RE {
         if(nativeLibraryLoaded)
             return digest_native(input);
         else return digest_java(input);
+
+        /*
+        long start2 = System.currentTimeMillis();
+        byte[] result = digest_native(input);
+        long end2 = System.currentTimeMillis();
+
+        long start1 = System.currentTimeMillis();
+        byte[] result2 = digest_java(input);
+        long end1 = System.currentTimeMillis();
+
+        log.info("--Lyra2RE: java:  " + (end1-start1) + "ms vs native:  "+ (end2-start2) +"ms");
+
+        return result;
+        */
     }
     static native byte[] digest_native(byte [] input);
 

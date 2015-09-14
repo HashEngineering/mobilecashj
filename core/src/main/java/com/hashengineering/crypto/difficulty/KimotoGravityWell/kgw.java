@@ -14,6 +14,7 @@ public class kgw {
     static {
         try {
             System.loadLibrary("diffhash");
+
             native_library_loaded = true;
         }
         catch(UnsatisfiedLinkError e)

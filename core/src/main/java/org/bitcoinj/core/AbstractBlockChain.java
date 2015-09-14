@@ -855,10 +855,21 @@ public abstract class AbstractBlockChain {
             verifyDifficulty(bnNew, nextBlock);
         }*/
 
-    //    if(!kgw.isNativeLibraryLoaded())
+        //long start1 = System.currentTimeMillis();
+
+//        long end1, end2;
+
+        if(!kgw.isNativeLibraryLoaded()) {
             KimotoGravityWell(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
-  //      else
-//            KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+        //    end1 = System.currentTimeMillis();
+        }
+        else {
+            //long start2 = System.currentTimeMillis();
+            KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+          //  end2 = System.currentTimeMillis();
+
+        //log.info("--KGW: java:  " + (end1-start1) + "ms vs native:  "+ (end2-start2) +"ms");
+        }
     }
 
 
