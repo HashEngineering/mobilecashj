@@ -76,7 +76,7 @@ public class CoinDefinition {
     public static final int MAX_COINS = 2000000000;                 //main.h:  MAX_MONEY
 
 
-    public static final Coin DEFAULT_MIN_TX_FEE = Coin.valueOf(500000);   // MIN_TX_FEE
+    public static final Coin DEFAULT_MIN_TX_FEE = Coin.valueOf(100000);   // MIN_TX_FEE
     public static final Coin DUST_LIMIT = Coin.valueOf(100000); //main.h CTransaction::GetMinFee        0.01 coins
 
     public static final int PROTOCOL_VERSION = 70002;          //version.h PROTOCOL_VERSION
