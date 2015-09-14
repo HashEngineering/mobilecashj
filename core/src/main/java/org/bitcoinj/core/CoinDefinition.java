@@ -14,7 +14,7 @@ public class CoinDefinition {
 
 
     public static final String coinName = "Mobilecash";
-    public static final String coinTicker = "NMC";
+    public static final String coinTicker = "MBL";
     public static final String coinURIScheme = "mobilecash";
     public static final String cryptsyMarketId = "29";
     public static final String cryptsyMarketCurrency = "BTC";
@@ -38,7 +38,7 @@ public class CoinDefinition {
     public static final String BLOCKEXPLORER_BLOCK_PATH = "block/";                 //blockr.io path
     public static final String BLOCKEXPLORER_BASE_URL_TEST = BLOCKEXPLORER_BASE_URL_PROD;
 
-    public static final String DONATION_ADDRESS = "Mz1eQ1BA5tJqVpmnCbRyAExdEcwYpp7xyz";  //HashEngineering donation DGC address
+    public static final String DONATION_ADDRESS = "";  //HashEngineering donation MC address
 
     public static final String UNSPENT_API_URL = "http://bitcoin-abe.info/chain/Namecoin/unspent/";
     public enum UnspentAPIType {
