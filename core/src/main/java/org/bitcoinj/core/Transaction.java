@@ -177,7 +177,7 @@ public class Transaction extends ChildMessage implements Serializable {
 
     public Transaction(NetworkParameters params) {
         super(params);
-        version = 1;
+        version = 3;
         inputs = new ArrayList<TransactionInput>();
         outputs = new ArrayList<TransactionOutput>();
         // We don't initialize appearsIn deliberately as it's only useful for transactions stored in the wallet.

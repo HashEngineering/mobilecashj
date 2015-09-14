@@ -87,6 +87,7 @@ public class Block extends Message {
     private transient boolean lastByteNull;
     /** Stores the hash of the block. If null, getHash() will recalculate it. */
     private transient Sha256Hash hash;
+    private transient Sha256Hash powHash;
     private transient BlockMergeMined mmBlock;
     private transient boolean headerParsed;
     private transient boolean transactionsParsed;
@@ -103,7 +104,7 @@ public class Block extends Message {
     Block(NetworkParameters params) {
         super(params);
         // Set up a few basic things. We are not complete after this though.
-        version = 1;
+        version = 3;
         difficultyTarget = 0x1d07fff8L;
         time = System.currentTimeMillis() / 1000;
         prevBlockHash = Sha256Hash.ZERO_HASH;
@@ -563,15 +564,15 @@ public class Block extends Message {
         }
     }
 
-    /*private Sha256Hash calculateScryptHash() {
+    private Sha256Hash calculatePowHash() {
         try {
             ByteArrayOutputStream bos = new UnsafeByteArrayOutputStream(HEADER_SIZE);
             writeHeader(bos);
-            return new Sha256Hash(Utils.reverseBytes(scryptDigest(bos.toByteArray())));
+            return new Sha256Hash(Utils.reverseBytes(Utils.powDigest(bos.toByteArray())));
         } catch (IOException e) {
             throw new RuntimeException(e); // Cannot happen.
         }
-    }*/
+    }
 
     /**
      * Returns the hash of the block (which for a valid, solved block should be below the target) in the form seen on
@@ -597,11 +598,11 @@ public class Block extends Message {
         return hash;
     }
 
-/*    public Sha256Hash getScryptHash() {
-        if (scryptHash == null)
-            scryptHash = calculateScryptHash();
-        return scryptHash;
-    }*/
+   public Sha256Hash getPowHash() {
+        if (powHash == null)
+            powHash = calculatePowHash();
+        return powHash;
+   }
 
 
     /**
@@ -736,13 +737,13 @@ public class Block extends Message {
 
             }
             else
-                hash = getHash().toBigInteger();
+                hash = getPowHash().toBigInteger();
         }
         else
         {
             if(mmBlock != null && mmBlock.IsValid())
                 throw new VerificationException("Merged-mine block was found before merged-mining was turned on at time: " + BlockMergeMined.MERGED_MINE_START_TIME + "(Block 25000)");
-            hash = getHash().toBigInteger();
+            hash = getPowHash().toBigInteger();
         }
 
 

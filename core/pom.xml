@@ -21,11 +21,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.bitcoinj</groupId>
-        <artifactId>namecoinj-parent</artifactId>
+        <artifactId>mobilecashj-parent</artifactId>
         <version>0.12.2</version>
     </parent>
 
-    <artifactId>namecoinj-core</artifactId>
+    <artifactId>mobilecashj-core</artifactId>
 
     <name>namecoinj</name>
     <description>A Java Namecoin library</description>
@@ -269,7 +269,7 @@
                                 <artifactItem>
                                     <outputDirectory>target/test-classes/</outputDirectory>
                                     <groupId>org.bitcoinj</groupId>
-                                    <artifactId>namecoinj-core</artifactId>
+                                    <artifactId>mobilecashj-core</artifactId>
                                     <version>${project.version}</version>
                                 </artifactItem>
                             </artifactItems>

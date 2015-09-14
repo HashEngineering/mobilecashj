@@ -37,7 +37,8 @@ public class BlockMergeMined {
     public static final long MERGED_MINE_START_TIME = 0;
     public static final long BLOCK_VERSION_AUXPOW = (1 << 8);
     public static final long BLOCK_VERSION_CHAIN_START = (1 << 16);
-    public static final long MERGED_MINE_CHAIN_ID = 0x0001;
+    public static final long BLOCK_VERSION_CHAIN_END = (1 << 30);
+    public static final long MERGED_MINE_CHAIN_ID = 22;
     public static final byte pchMergedMiningHeader[] = { (byte)0xfa, (byte)0xbe, 'm', 'm' } ;
     // Fields defined as part of the protocol format.
     // modifiers
@@ -74,7 +75,7 @@ public class BlockMergeMined {
     public Sha256Hash getParentBlockHash()
     {
         //return payload.hashOfParentBlockHeader;
-        return payload.parentBlockHeader.getHash(); //For namecoin, we must always check the block header hash, not the value included in the block header
+        return payload.parentBlockHeader.getPowHash(); //For namecoin, we must always check the block header hash, not the value included in the block header
     }
     /** Returns the version of the block data structure as defined by the Bitcoin protocol. */
     public long getVersion() {

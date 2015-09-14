@@ -25,6 +25,7 @@ import com.google.common.io.BaseEncoding;
 import com.google.common.io.Resources;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.UnsignedLongs;
+import com.hashengineering.crypto.Lyra2RE;
 
 import org.spongycastle.crypto.digests.RIPEMD160Digest;
 
@@ -40,6 +41,13 @@ import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+
+import fr.cryptohash.BLAKE256;
+import fr.cryptohash.BMW256;
+import fr.cryptohash.CubeHash256;
+import fr.cryptohash.Keccak256;
+import fr.cryptohash.Lyra2;
+import fr.cryptohash.Skein256;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
@@ -147,13 +155,43 @@ public class Utils {
         return doubleDigest(input, 0, input.length);
     }
 
-    /*public static byte[] scryptDigest(byte[] input) {
+    public static byte[] powDigest(byte[] input) {
+        return Lyra2RE.digest(input);
+        /*
+        byte[] digestA;
+        byte[] digestB;
         try {
-            return SCrypt.scrypt(input, input, 1024, 1, 1, 32);
+            //return SCrypt.scrypt(input, input, 2048, 1, 1, 32);
+
+            BLAKE256 blake256 = new BLAKE256();
+            digestA = blake256.digest(input);
+
+            Keccak256 keccak = new Keccak256();
+            digestB = keccak.digest(digestA);
+
+            CubeHash256 cubehash = new CubeHash256();
+            digestA = cubehash.digest(digestB);
+
+            Lyra2.LYRA2(digestB, digestA, digestA, 1, 4, 4);
+
+            Skein256 skein = new Skein256();
+            digestA = skein.digest(digestB);
+
+            CubeHash256 cubehash2 = new CubeHash256();
+            digestB = cubehash2.digest(digestA);
+
+            BMW256 bmw = new BMW256();
+            digestA = bmw.digest(digestB);
+
+            //BMW256 bmw2 = new BMW256();
+
+            return digestA;
+
         } catch (Exception e) {
             return null;
         }
-    } */
+        */
+    }
 
     /**
      * Calculates the SHA-256 hash of the given byte range, and then hashes the resulting hash again. This is
