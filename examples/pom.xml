@@ -21,13 +21,13 @@
     <parent>
 
         <groupId>org.bitcoinj</groupId>
-        <artifactId>namecoinj-parent</artifactId>
+        <artifactId>mobilecashj-parent</artifactId>
         <version>0.12.2</version>
 
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>namecoinj-examples</artifactId>
+    <artifactId>mobilecashj-examples</artifactId>
 
     <name>namecoinj Examples</name>
     <description>A collection of examples using the namecoinj library</description>
@@ -35,7 +35,7 @@
     <dependencies>
         <dependency>
             <groupId>org.bitcoinj</groupId>
-            <artifactId>namecoinj-core</artifactId>
+            <artifactId>mobilecashj-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
