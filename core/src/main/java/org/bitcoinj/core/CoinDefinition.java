@@ -57,9 +57,9 @@ public class CoinDefinition {
     public static final CoinHash coinPOWHash = CoinHash.other;
 
     public static boolean checkpointFileSupport = true;
-    public static int checkpointDaysBack = 1;
+    public static int checkpointDaysBack = 0;
 
-    public static final int TARGET_TIMESPAN = (int)(4 * 60 * 60);  // 2 weeks per difficulty cycle, on average.
+    public static final int TARGET_TIMESPAN = (int)(1.4 * 24 * 60 * 60);  // 2 weeks per difficulty cycle, on average.
     public static final int TARGET_SPACING = (int)(1 * 60);  // 10 minutes per block.
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;  //
 
@@ -87,13 +87,13 @@ public class CoinDefinition {
     public static final int MAX_BLOCK_SIZE = 1 * 1000 * 1000;
 
 
-    public static final boolean supportsBloomFiltering = false; //Requires PROTOCOL_VERSION 70000 in the client
+    public static final boolean supportsBloomFiltering = true; //Requires PROTOCOL_VERSION 70000 in the client
     public static boolean supportsIrcDiscovery() {
         return PROTOCOL_VERSION <= 70000;
     }
 
-    public static final int Port    = 7889;       //protocol.h GetDefaultPort(testnet=false)
-    public static final int TestPort = 17889;     //protocol.h GetDefaultPort(testnet=true)
+    public static final int Port    = 6889;       //protocol.h GetDefaultPort(testnet=false)
+    public static final int TestPort = 16889;     //protocol.h GetDefaultPort(testnet=true)
 
     //
     //  Production
@@ -142,15 +142,32 @@ public class CoinDefinition {
     static public long testnetGenesisBlockNonce = (0);                         //main.cpp: LoadBlockIndex
 
     //main.cpp GetBlockValue(height, fee)
-    public static final Coin GetBlockReward(int height)
+    public static final Coin GetBlockReward(int nHeight)
     {
         int COIN = 1;
-        Coin nSubsidy = Coin.valueOf(15, 0);
+        int nSubsidy = 20 * COIN;
 
+        if (nHeight < 2016 ) nSubsidy = 2 * COIN;
+        else if (nHeight < 2*2016 ) nSubsidy = 4 * COIN;
+        else if (nHeight < 3*2016 ) nSubsidy = 6 * COIN;
+        else if (nHeight < 4*2016 ) nSubsidy = 8 * COIN;
+        else if (nHeight < 5*2016 ) nSubsidy = 10 * COIN;
+        else if (nHeight < 6*2016 ) nSubsidy = 12 * COIN;
+        else if (nHeight < 7*2016 ) nSubsidy = 14 * COIN;
+        else if (nHeight < 8*2016 ) nSubsidy = 16 * COIN;
+        else if (nHeight < 9*2016 ) nSubsidy = 18 * COIN;
+        else if (nHeight < 525960 ) nSubsidy = 20 * COIN;
 
+        else if (nHeight >= 3*525960 && nHeight < 4*525960) {
+            nSubsidy = (int)(20.60602 * COIN);
+        }
+
+        else {
+            nSubsidy = (int)(20.0 * java.lang.Math.pow(1.01, nHeight/525960) * COIN);
+        }
 
             //return nSubsidy.shiftRight(height / subsidyDecreaseBlockCount);
-        return nSubsidy;
+        return Coin.valueOf(nSubsidy);
     }
 
     public static int subsidyDecreaseBlockCount = 210000;     //main.cpp GetBlockValue(height, fee)

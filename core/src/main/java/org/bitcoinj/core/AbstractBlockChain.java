@@ -840,7 +840,7 @@ public abstract class AbstractBlockChain {
      * Throws an exception if the blocks difficulty is not correct.
      */
 
-    private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+    private void checkDifficultyTransitions_kgw(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
         final long      	BlocksTargetSpacing			= 150; // 2.5 minutes
         int         		TimeDaySeconds				= 60 * 60 * 24;
         long				PastSecondsMin				= TimeDaySeconds / 4;  //6 hours
@@ -1130,7 +1130,7 @@ public abstract class AbstractBlockChain {
                     receivedDifficulty.toString(16) + " vs " + calcDiff.toString(16));
     }
 
-    private void checkDifficultyTransitions_old(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+    private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
         checkState(lock.isHeldByCurrentThread());
         Block prev = storedPrev.getHeader();
 
@@ -1158,7 +1158,7 @@ public abstract class AbstractBlockChain {
         long now = System.currentTimeMillis();
         StoredBlock cursor = blockStore.get(prev.getHash());
         int blocksToGoBack = params.getInterval() - 1;
-        if(storedPrev.getHeight() >= CoinDefinition.getFullRetargetStartBlock() && ((storedPrev.getHeight()+1) > params.getInterval()))
+        if((storedPrev.getHeight()+ 1) != params.getInterval())
             blocksToGoBack = params.getInterval();
         for (int i = 0; i < blocksToGoBack; i++) {
             if (cursor == null) {
