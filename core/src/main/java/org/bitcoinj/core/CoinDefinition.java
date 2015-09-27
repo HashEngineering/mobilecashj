@@ -87,13 +87,13 @@ public class CoinDefinition {
     public static final int MAX_BLOCK_SIZE = 1 * 1000 * 1000;
 
 
-    public static final boolean supportsBloomFiltering = false; //Requires PROTOCOL_VERSION 70000 in the client
+    public static final boolean supportsBloomFiltering = true; //Requires PROTOCOL_VERSION 70000 in the client
     public static boolean supportsIrcDiscovery() {
         return PROTOCOL_VERSION <= 70000;
     }
 
-    public static final int Port    = 6889;       //protocol.h GetDefaultPort(testnet=false)
-    public static final int TestPort = 16889;     //protocol.h GetDefaultPort(testnet=true)
+    public static final int Port    = 14415;       //protocol.h GetDefaultPort(testnet=false)
+    public static final int TestPort = 41442;     //protocol.h GetDefaultPort(testnet=true)
 
     //
     //  Production
@@ -123,7 +123,12 @@ public class CoinDefinition {
     //net.cpp strDNSSeed
     static public String[] dnsSeeds = new String[] {
             "5.196.3.187",
-            "185.35.64.174"
+            "185.35.64.174",
+            "192.168.1.7",
+            "93.186.251.227",
+                    "185.43.211.233",
+            "81.2.237.134",
+            "86.105.50.219"
 
     };
 
@@ -147,7 +152,8 @@ public class CoinDefinition {
         int COIN = 1;
         int nSubsidy = 20 * COIN;
 
-        if (nHeight < 2016 ) nSubsidy = 2 * COIN;
+        if (nHeight == 1 ) nSubsidy = 1052101444 * COIN;
+        else if (nHeight < 2016 ) nSubsidy = 2 * COIN;
         else if (nHeight < 2*2016 ) nSubsidy = 4 * COIN;
         else if (nHeight < 3*2016 ) nSubsidy = 6 * COIN;
         else if (nHeight < 4*2016 ) nSubsidy = 8 * COIN;
