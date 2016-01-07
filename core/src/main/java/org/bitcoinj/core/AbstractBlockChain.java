@@ -1168,6 +1168,8 @@ public abstract class AbstractBlockChain {
             }
             cursor = blockStore.get(cursor.getHeader().getPrevBlockHash());
         }
+        if(cursor == null)
+            return; // allow the first diff change to slide.
         long elapsed = System.currentTimeMillis() - now;
         if (elapsed > 50)
             log.info("Difficulty transition traversal took {}msec", elapsed);
